@@ -8,7 +8,7 @@ import torch
 cap = cv2.VideoCapture(0)
 
 
-model = YOLO("best (2).pt")
+model = YOLO("yolomodel/best.pt")
 
 
 
