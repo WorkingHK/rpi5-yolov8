@@ -7,7 +7,7 @@ cap = cv2.VideoCapture(0)
 
 
 model = YOLO("yolomodel/best.pt")
-
+tolerance=0.1
 
 
 while True:
@@ -41,7 +41,7 @@ while True:
         
         # Display the center coordinates
         cv2.putText(frame, f"({object_center_x}, {object_center_y})", (object_center_x, object_center_y - 10), cv2.FONT_HERSHEY_PLAIN, 2, (0, 255, 0), 2)
-
+        cv2.rectangle(frame, (int(width/2-tolerance*width),int(height/2-tolerance*height)), (int(width/2+tolerance*width),int(height/2+tolerance*height)), (0,255,0), 2)
     # Display the difference on the bottom left corner of the frame
         cv2.putText(frame, f"Diff: ({diff_x}, {diff_y})", (10, height - 10), cv2.FONT_HERSHEY_PLAIN, 2, (255, 255, 255), 2)
 
