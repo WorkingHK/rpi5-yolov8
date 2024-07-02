@@ -1,7 +1,9 @@
 import cv2
-from ultralytics import YOLO
 import numpy as np
 import torch 
+from ultralytics import YOLO
+
+#print(torch.__version__)
 
 cap = cv2.VideoCapture(0)
 
@@ -28,7 +30,7 @@ while True:
     # Draw the tolerance zone
     cv2.rectangle(frame, (int(width/2-tolerance*width),int(height/2-tolerance*height)), (int(width/2+tolerance*width),int(height/2+tolerance*height)), (0,255,0), 2)
 
-    results = model(frame, device="mps") 
+    results = model(frame, device="cpu") 
     result = results[0]
 
     bboxes = np.array(result.boxes.xyxy.cpu() , dtype="int")
@@ -61,7 +63,7 @@ while True:
             cv2.putText(frame, "Out of Zone", (object_center_x, object_center_y + 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 255), 2)
 
     cv2.imshow("Detection", frame)
-    key = cv2.waitKey(1)
+    key = cv2.waitKey(0.5)
     if key == 27:
         break
 
