@@ -1,0 +1,17 @@
+description: Ultralytics YOLOv8n model trained on /content/Final_ball_tracking-1/data.yaml
+author: Ultralytics
+date: '2024-07-02T13:23:25.180794'
+version: 8.2.48
+license: AGPL-3.0 License (https://ultralytics.com/license)
+docs: https://docs.ultralytics.com
+stride: 32
+task: detect
+batch: 1
+imgsz:
+- 640
+- 640
+names:
+  0: blue_ball
+  1: purple_ball
+  2: red_ball
+  3: silo

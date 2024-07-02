@@ -3,12 +3,13 @@ import numpy as np
 import torch 
 from ultralytics import YOLO
 
+
 #print(torch.__version__)
 
 cap = cv2.VideoCapture(0)
 
 
-model = YOLO("yolomodel/best.pt")
+model = YOLO("best_ncnn_model")
 tolerance=0.1
 
 ret , frame = cap.read()
