@@ -11,22 +11,28 @@ cap = cv2.VideoCapture(0)
 model = YOLO("yolomodel/best.pt")
 tolerance=0.1
 
+ret , frame = cap.read()
+if not ret:
+    cap.release()
+    cv2.destroyAllWindows()
+
+#Change according to processors(cpu,gpu,macbook)
+height, width = frame.shape[:2]
+frame_center_x = width // 2
+frame_center_y = height // 2
+
+# Calculate the tolerance zone coordinates
+tolerance_x1 = int(width / 2 - tolerance * width)
+tolerance_y1 = int(height / 2 - tolerance * height)
+tolerance_x2 = int(width / 2 + tolerance * width)
+tolerance_y2 = int(height / 2 + tolerance * height)
 
 while True:
     ret , frame = cap.read()
     if not ret:
         break
-    #Change according to processors(cpu,gpu,macbook)
-    height, width = frame.shape[:2]
-    frame_center_x = width // 2
-    frame_center_y = height // 2
 
-    # Calculate the tolerance zone coordinates
-    tolerance_x1 = int(width / 2 - tolerance * width)
-    tolerance_y1 = int(height / 2 - tolerance * height)
-    tolerance_x2 = int(width / 2 + tolerance * width)
-    tolerance_y2 = int(height / 2 + tolerance * height)
-    
+   
     # Draw the tolerance zone
     cv2.rectangle(frame, (int(width/2-tolerance*width),int(height/2-tolerance*height)), (int(width/2+tolerance*width),int(height/2+tolerance*height)), (0,255,0), 2)
 
@@ -63,7 +69,7 @@ while True:
             cv2.putText(frame, "Out of Zone", (object_center_x, object_center_y + 20), cv2.FONT_HERSHEY_PLAIN, 2, (0, 0, 255), 2)
 
     cv2.imshow("Detection", frame)
-    key = cv2.waitKey(0.5)
+    key = cv2.waitKey(1)
     if key == 27:
         break
 
